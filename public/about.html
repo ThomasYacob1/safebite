@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeBite — About</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Safe<span>Bite</span></a>
+  <a href="/">Home</a>
+  <a href="/about" class="active">About</a>
+  <a href="/help">Help</a>
+</nav>
+
+<div class="page">
+  <div class="hero">
+    <h1>About <em>SafeBite</em></h1>
+    <p>A food safety tool built to make FDA recall data accessible to everyone.</p>
+  </div>
+
+  <div class="prose">
+    <h2>The Problem</h2>
+    <p>Every year, the FDA issues hundreds of food recalls due to contamination, undeclared allergens,
+    and safety breaches. While this data is publicly available, it is buried in government databases
+    that are difficult to search, filter, or understand at a glance.</p>
+    <p>Most people purchase food without ever checking whether a product has been recalled.
+    SafeBite closes that information gap by surfacing FDA recall data in a clean,
+    searchable, and easy-to-understand format.</p>
+
+    <h2>Who This Is For</h2>
+    <ul>
+      <li>Everyday grocery shoppers who want to stay informed</li>
+      <li>Families managing food allergies or sensitivities</li>
+      <li>Public health advisors tracking food safety trends</li>
+      <li>Small grocery stores monitoring their product inventory</li>
+    </ul>
+
+    <h2>How It Works</h2>
+    <p>SafeBite connects directly to the <strong style="color:var(--text)">openFDA Food Enforcement API</strong>,
+    a government-verified data source updated with new recall reports on a rolling basis.
+    Search results are pulled live so you are always seeing the most current data available.</p>
+    <p>Your recent searches are saved to our database so you can quickly revisit past lookups.</p>
+
+    <h2>Understanding Recall Classes</h2>
+
+    <div class="card" style="margin-bottom:1rem;">
+      <p style="margin-bottom:0.5rem;"><span class="badge badge-I">Class I</span></p>
+      <p>The most serious type. There is a reasonable probability that consuming the product will cause
+      serious adverse health consequences or death. Examples include E. coli, Listeria, or Salmonella contamination.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:1rem;">
+      <p style="margin-bottom:0.5rem;"><span class="badge badge-II">Class II</span></p>
+      <p>A situation where use of or exposure to a product may cause temporary, reversible adverse health
+      consequences. Often includes undeclared allergens.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:1rem;">
+      <p style="margin-bottom:0.5rem;"><span class="badge badge-III">Class III</span></p>
+      <p>A situation where use of or exposure to a product is unlikely to cause any adverse health
+      consequences. Examples include labeling errors or minor packaging issues.</p>
+    </div>
+
+    <h2>Data Source</h2>
+    <p>All recall data is sourced from the
+    <a href="https://open.fda.gov/apis/food/enforcement/" target="_blank"
+       style="color:var(--accent);">openFDA Food Enforcement API</a>,
+    a free public API maintained by the U.S. Food &amp; Drug Administration.</p>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeBite — Food Recall Tracker</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Safe<span>Bite</span></a>
+  <a href="/" class="active">Home</a>
+  <a href="/about">About</a>
+  <a href="/help">Help</a>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <h1>Know what you eat.<br><em>Check before you buy.</em></h1>
+    <p>Search real-time FDA food recall data. Filter by severity, browse distribution areas, and stay informed about food safety in your area.</p>
+  </div>
+
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-box danger"><span class="num" id="statI">—</span><span class="lbl">Class I (High Risk)</span></div>
+    <div class="stat-box warn"><span class="num" id="statII">—</span><span class="lbl">Class II (Moderate)</span></div>
+    <div class="stat-box safe"><span class="num" id="statIII">—</span><span class="lbl">Class III (Low Risk)</span></div>
+  </div>
+
+  <div class="chart-wrap">
+    <h3>Recall Distribution by Class</h3>
+    <canvas id="classChart" height="80"></canvas>
+  </div>
+
+  <div class="section-header">
+    <h2>Search Recalls</h2>
+  </div>
+
+  <div class="search-wrap">
+    <input type="text" id="searchInput" placeholder="Search product (e.g. salmon, peanut butter…)" />
+    <select id="classFilter">
+      <option value="">All Classes</option>
+      <option value="Class I">Class I — High Risk</option>
+      <option value="Class II">Class II — Moderate</option>
+      <option value="Class III">Class III — Low Risk</option>
+    </select>
+    <button class="btn" id="searchBtn">Search</button>
+    <button class="btn btn-ghost" id="clearBtn">Clear</button>
+  </div>
+
+  <div id="recentWrap" style="margin-bottom: 1.5rem; display:none;">
+    <p style="font-size:0.8rem; color:var(--muted); margin-bottom:0.4rem;">Recent searches</p>
+    <div class="recent-list" id="recentList"></div>
+  </div>
+
+  <div id="results">
+    <div class="state-msg">Enter a search term or browse all recalls below.</div>
+  </div>
+
+  <div class="pagination" id="pagination" style="display:none;">
+    <button class="btn btn-ghost" id="prevBtn">← Prev</button>
+    <span id="pageInfo">Page 1</span>
+    <button class="btn btn-ghost" id="nextBtn">Next →</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;">
+      <h2 id="modalTitle">Recall Details</h2>
+      <button class="btn btn-ghost" id="closeModal" style="padding:0.4rem 0.8rem;">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

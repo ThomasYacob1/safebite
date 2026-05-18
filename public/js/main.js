@@ -1,22 +1,29 @@
 const LIMIT = 20;
 let currentPage = 0;
+
 let lastSearch = "";
 let lastClass = "";
+
 let totalResults = 0;
 
 const searchInput  = document.getElementById("searchInput");
+
 const classFilter  = document.getElementById("classFilter");
 const searchBtn    = document.getElementById("searchBtn");
+
 const clearBtn     = document.getElementById("clearBtn");
 const resultsEl    = document.getElementById("results");
 const pagination   = document.getElementById("pagination");
 const prevBtn      = document.getElementById("prevBtn");
+
 const nextBtn      = document.getElementById("nextBtn");
 const pageInfo     = document.getElementById("pageInfo");
 const recentWrap   = document.getElementById("recentWrap");
+
 const recentList   = document.getElementById("recentList");
 const modalOverlay = document.getElementById("modalOverlay");
 const closeModal   = document.getElementById("closeModal");
+
 const modalTitle   = document.getElementById("modalTitle");
 const modalBody    = document.getElementById("modalBody");
 
@@ -28,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   searchBtn.addEventListener("click", handleSearch);
   clearBtn.addEventListener("click", handleClear);
   searchInput.addEventListener("keydown", e => { if (e.key === "Enter") handleSearch(); });
+  
   prevBtn.addEventListener("click", () => changePage(-1));
   nextBtn.addEventListener("click", () => changePage(1));
   closeModal.addEventListener("click", closeModalFn);
@@ -155,10 +163,13 @@ function openModal(r) {
     ${field("Status",                 r.status || "—")}
     ${field("Recall Initiation Date", formatDate(r.recall_initiation_date))}
     ${field("Recalling Firm",         r.recalling_firm || "—")}
+    
     ${field("Reason for Recall",      r.reason_for_recall || "—")}
     ${field("Product Description",    r.product_description || "—")}
+    
     ${field("Distribution Pattern",   r.distribution_pattern || "—")}
     ${field("Quantity Recalled",      r.product_quantity || "—")}
+    
     ${field("Recall Number",          r.recall_number || "—")}
     ${field("City / State",           [r.city, r.state].filter(Boolean).join(", ") || "—")}
   `;
@@ -211,10 +222,13 @@ async function saveSearch(term) {
 
 function handleSearch() {
   const term = searchInput.value.trim();
+  
   const cls  = classFilter.value;
   currentPage = 0;
+  
   lastSearch  = term;
   lastClass   = cls;
+  
   fetchRecalls(term, cls, 0);
   if (term) saveSearch(term).then(() => loadRecentSearches());
 }
@@ -222,6 +236,7 @@ function handleSearch() {
 function handleClear() {
   searchInput.value = "";
   classFilter.value = "";
+  
   currentPage = 0;
   lastSearch  = "";
   lastClass   = "";
@@ -241,6 +256,7 @@ function updatePagination() {
   const totalPages = Math.ceil(totalResults / LIMIT);
   if (totalPages <= 1) { pagination.style.display = "none"; return; }
   pagination.style.display = "flex";
+  
   pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
   prevBtn.disabled = currentPage === 0;
   nextBtn.disabled = (currentPage + 1) * LIMIT >= totalResults;

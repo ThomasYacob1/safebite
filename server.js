@@ -1,20 +1,22 @@
-process.on('uncaughtException', (err) => { console.error('CRASH:', err); });
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
-const fetch = require("node-fetch");
+
+const cors= require("cors");
+const fetch =require("node-fetch");
+
 const { createClient } = require("@supabase/supabase-js");
 const path = require("path");
  
-const app = express();
+const app= express();
+
 const PORT = process.env.PORT || 3000;
  
-// ── Middleware ──────────────────────────────────────────────────────────────
 app.use(cors());
 app.use(express.json());
+
 app.use(express.static(path.join(__dirname, "public")));
  
-// ── Supabase Client ─────────────────────────────────────────────────────────
+
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_ANON_KEY
@@ -22,16 +24,13 @@ const supabase = createClient(
  
 const FDA_BASE = "https://api.fda.gov/food/enforcement.json";
  
-// ──────────────────────────────────────────────────────────────────────────────
-// ENDPOINT 1 — GET data from external FDA API
-// GET /api/recalls?search=&classification=&limit=&skip=
-// ──────────────────────────────────────────────────────────────────────────────
 app.get("/api/recalls", async (req, res) => {
   try {
     const { search = "", classification = "", limit = 20, skip = 0 } = req.query;
  
     let searchParts = [];
     if (search) searchParts.push(`product_description:"${search}"`);
+    
     if (classification) searchParts.push(`classification:"${classification}"`);
  
     const searchParam = searchParts.length
@@ -53,13 +52,11 @@ app.get("/api/recalls", async (req, res) => {
   }
 });
  
-// ──────────────────────────────────────────────────────────────────────────────
-// ENDPOINT 2 — GET recall statistics (counts by classification) from FDA
-// GET /api/stats
-// ──────────────────────────────────────────────────────────────────────────────
+
+
 app.get("/api/stats", async (req, res) => {
   try {
-    const url = `${FDA_BASE}?count=classification.exact`;
+    const url= `${FDA_BASE}?count=classification.exact`;
     const response = await fetch(url);
  
     if (!response.ok) {
@@ -74,10 +71,8 @@ app.get("/api/stats", async (req, res) => {
   }
 });
  
-// ──────────────────────────────────────────────────────────────────────────────
-// ENDPOINT 3 — GET recent searches from Supabase (reads from DB)
-// GET /api/searches
-// ──────────────────────────────────────────────────────────────────────────────
+
+
 app.get("/api/searches", async (req, res) => {
   try {
     const { data, error } = await supabase
@@ -94,10 +89,8 @@ app.get("/api/searches", async (req, res) => {
   }
 });
  
-// ──────────────────────────────────────────────────────────────────────────────
-// ENDPOINT 4 — POST a search term to Supabase (writes to DB)
-// POST /api/searches   body: { term: string }
-// ──────────────────────────────────────────────────────────────────────────────
+
+
 app.post("/api/searches", async (req, res) => {
   try {
     const { term } = req.body;
@@ -118,12 +111,13 @@ app.post("/api/searches", async (req, res) => {
   }
 });
  
-// ── Page Routes ──────────────────────────────────────────────────────────────
+
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
+
 app.get("/about", (req, res) => res.sendFile(path.join(__dirname, "public", "about.html")));
 app.get("/help", (req, res) => res.sendFile(path.join(__dirname, "public", "help.html")));
  
-// ── Start ────────────────────────────────────────────────────────────────────
+
 app.listen(PORT, () => {
   console.log(`SafeBite server running on http://localhost:${PORT}`);
 });
